@@ -112,6 +112,7 @@ public class Main {
     private static void Delete_Comment(int key) {
 
         boolean found = false;
+        String k = String.valueOf(key);
         for (Map.Entry<String, Comment_Detail> set : CommentMap.entrySet()) {
             if (("Key=" + key + " ").equals(set.getKey())) {
                 found = true;
@@ -119,7 +120,10 @@ public class Main {
             }
         }
         if(found){
+
             CommentMap.remove("Key="+ key + " ");
+            DeleteReplies(k);
+
             System.out.println("Comment deleted successfully!!");
             System.out.println();
             DisplayComments();
@@ -258,7 +262,7 @@ public class Main {
 
         }
         else{
-            System.out.println("No comment found with this key!!");
+            System.out.println("No Reply found with this key!!");
             System.out.println();
         }
 
@@ -281,6 +285,16 @@ public class Main {
             System.out.println("  " + key + ":" + value);
         });
         System.out.println();
+    }
+
+    private static void DeleteReplies(String k){
+        Iterator<CustomKey> it = RepliesMap.keySet().iterator();
+        while (it.hasNext()) {
+            CustomKey keySet = it.next();
+            if(Objects.equals(keySet.commentKey, k)) {
+                it.remove();
+            }
+        }
     }
 
 }
