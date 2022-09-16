@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 public class CustomKey {
     String commentKey;
@@ -26,9 +27,22 @@ public class CustomKey {
 
     @Override
     public String toString() {
-        return " ReplyKeySet {" +
-                "commentKey='" + commentKey + '\'' +
-                ", replyKey='" + replyKey + '\'' +
+        return "Reply-KeySet {" +
+                "commentKey = " + commentKey +
+                ", replyKey = " + replyKey +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomKey customKey = (CustomKey) o;
+        return Objects.equals(commentKey, customKey.commentKey) && Objects.equals(replyKey, customKey.replyKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(commentKey, replyKey);
     }
 }
